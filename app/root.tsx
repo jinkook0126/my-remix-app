@@ -4,10 +4,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
+import Nav from "./components/Nav";
+import { getUserList } from "./services/user.server";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,7 +25,15 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const loader = async () => {
+  const userList = await getUserList();
+  return {
+    userList,
+  };
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { userList } = useLoaderData<typeof loader>();
   return (
     <html lang="en">
       <head>
@@ -32,7 +43,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="flex flex-row">
+          <Nav userList={userList} />
+          <main className="flex-grow">{children}</main>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
