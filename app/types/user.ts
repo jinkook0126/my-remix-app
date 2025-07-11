@@ -30,3 +30,12 @@ export interface IPost {
   body: string;
 }
 export type IPostList = IPost[];
+
+export interface IComment {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+}
+export type ICommentList = IComment[];

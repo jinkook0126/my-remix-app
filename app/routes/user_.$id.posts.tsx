@@ -1,4 +1,4 @@
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, Outlet, Link } from "@remix-run/react";
 import { getUserPosts } from "~/services/user.server";
 import type { IPostList } from "~/types/user";
 
@@ -13,15 +13,18 @@ export default function UserPosts() {
     <div className="p-4">
       <div className="flex flex-col gap-4">
         {posts.map((post) => (
-          <div
+          <Link
+            to={`/user/${post.userId}/posts/comments/${post.id}`}
             key={post.id}
-            className="flex flex-col gap-2 border border-gray-200 p-4 rounded-md"
           >
-            <h2 className="text-2xl font-bold">{post.title}</h2>
-            <p className="text-sm text-gray-500">{post.body}</p>
-          </div>
+            <div className="flex flex-col gap-2 border border-gray-200 p-4 rounded-md">
+              <h2 className="text-2xl font-bold">{post.title}</h2>
+              <p className="text-sm text-gray-500">{post.body}</p>
+            </div>
+          </Link>
         ))}
       </div>
+      <Outlet />
     </div>
   );
 }

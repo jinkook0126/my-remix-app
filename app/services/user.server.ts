@@ -43,3 +43,19 @@ export async function getUserPosts(id: string) {
     return [];
   }
 }
+
+export async function getPostComments(postId: string) {
+  try {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch post comments");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
