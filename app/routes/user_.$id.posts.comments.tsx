@@ -2,7 +2,6 @@ import { Outlet, useParams } from "@remix-run/react";
 
 export default function UserPostsComments() {
   const { postId } = useParams();
-  console.log(postId);
   if (!postId) {
     return <div>Post not found</div>;
   }
