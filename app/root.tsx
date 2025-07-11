@@ -43,9 +43,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div className="flex flex-row">
+        <div className="flex flex-row h-screen">
           <Nav userList={userList} />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-1 overflow-auto">{children}</main>
         </div>
         <ScrollRestoration />
         <Scripts />

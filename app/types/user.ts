@@ -22,3 +22,11 @@ export interface IUser {
   };
 }
 export type IUserList = IUser[];
+
+export interface IPost {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+export type IPostList = IPost[];
