@@ -36,3 +36,10 @@ export const updatePhonebook = async (
     },
   });
 };
+
+export const deletePhonebook = async (id: number) => {
+  console.log(id);
+  return prisma.phonebook.delete({
+    where: { id },
+  });
+};
