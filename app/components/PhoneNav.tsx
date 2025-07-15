@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react";
+import type { IPhonebook } from "~/types/phonebook";
 
-export default function PhoneNav() {
+export default function PhoneNav({ phonebook }: { phonebook: IPhonebook[] }) {
   return (
     <div className="w-56 h-full bg-zinc-100 border-r border-zinc-200 flex flex-col">
       <div className="flex flex-col items-center justify-center h-12 border-b border-zinc-200">
@@ -14,7 +15,16 @@ export default function PhoneNav() {
         </Link>
       </div>
       <div className="flex flex-1 flex-col justify-between">
-        <ul className="flex flex-col gap-2 p-4"></ul>
+        <ul className="flex flex-col gap-2 p-4">
+          {phonebook.map((phone) => (
+            <li
+              key={phone.id}
+              className="text-md hover:text-zinc-700 cursor-pointer"
+            >
+              <Link to={`/phonebook/${phone.id}`}>{phone.name}</Link>
+            </li>
+          ))}
+        </ul>
       </div>
       <div className="border-t border-zinc-200 h-12 flex items-center justify-center">
         <Link to="/" className="text-bold text-zinc-500 hover:text-zinc-700">

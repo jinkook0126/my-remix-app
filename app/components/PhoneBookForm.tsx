@@ -17,8 +17,9 @@ const PhoneBookForm = ({ defaultValues }: Props) => {
       />
       <label htmlFor="phone">전화번호</label>
       <input
-        type="text"
+        type="tel"
         placeholder="010-1234-5678"
+        maxLength={11}
         name="phone"
         className="border border-zinc-200 rounded-md p-2"
         defaultValue={defaultValues?.phone}

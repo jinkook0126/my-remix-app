@@ -1,12 +1,13 @@
-import { ActionFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, redirect } from "@remix-run/node";
 import PhoneBookForm from "~/components/PhoneBookForm";
+import { createPhonebook } from "~/services/phonebook.server";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
-  const name = formData.get("name");
-  const phone = formData.get("phone");
-  console.log(name, phone);
-  return null;
+  const name = formData.get("name") as string;
+  const phone = formData.get("phone") as string;
+  await createPhonebook({ name, phone });
+  return redirect("/phonebook");
 };
 
 export default function PhonebookNew() {
