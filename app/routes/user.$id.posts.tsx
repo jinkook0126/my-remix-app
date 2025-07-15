@@ -10,7 +10,7 @@ export const loader = async ({ params }: { params: { id: string } }) => {
 export default function UserPosts() {
   const { posts } = useLoaderData<typeof loader>();
   return (
-    <div className="p-4">
+    <div className="p-4 overflow-auto flex-1">
       <div className="flex flex-col gap-4">
         {posts.map((post) => (
           <Link

@@ -1,9 +1,19 @@
-import { Outlet } from "@remix-run/react";
+import { Outlet, useLoaderData } from "@remix-run/react";
+import Nav from "~/components/Nav";
+import { getUserList } from "~/services/user.server";
+
+export const loader = async () => {
+  const userList = await getUserList();
+  return {
+    userList,
+  };
+};
 
 export default function User() {
+  const { userList } = useLoaderData<typeof loader>();
   return (
-    <div className="p-4">
-      <p className="text-2xl font-bold">유저 상세 페이지 입니다.</p>
+    <div className="flex flex-row h-screen">
+      <Nav userList={userList} />
       <Outlet />
     </div>
   );

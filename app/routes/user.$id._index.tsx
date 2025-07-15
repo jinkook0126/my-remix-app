@@ -10,7 +10,7 @@ export default function UserIndex() {
   const { user } = useLoaderData<typeof loader>();
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 p-4">
       <div className="flex flex-col gap-4">
         <div>
           <h2 className="text-2xl font-bold">이름</h2>
