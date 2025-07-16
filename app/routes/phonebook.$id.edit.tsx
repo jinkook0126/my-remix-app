@@ -1,8 +1,8 @@
 import { ActionFunctionArgs } from "@remix-run/node";
-import { redirect, useLocation } from "@remix-run/react";
+import { redirect, useRouteLoaderData } from "@remix-run/react";
 import PhoneBookForm from "~/components/PhoneBookForm";
 import { updatePhonebook } from "~/services/phonebook.server";
-import type { IPhonebook } from "~/types/phonebook";
+import { loader } from "./phonebook.$id";
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
   const { id } = params;
@@ -14,12 +14,12 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 };
 
 export default function PhonebookEdit() {
-  const location = useLocation();
-  const state: { phonebook: IPhonebook } = location.state;
+  const data = useRouteLoaderData<typeof loader>("routes/phonebook.$id");
+  const phonebook = data?.phonebook || undefined;
   return (
     <div className="flex flex-col h-full p-4 flex-1 justify-center items-center">
       <h1 className="text-2xl font-bold">전화번호 수정하기</h1>
-      <PhoneBookForm defaultValues={state?.phonebook} />
+      <PhoneBookForm defaultValues={phonebook} />
     </div>
   );
 }

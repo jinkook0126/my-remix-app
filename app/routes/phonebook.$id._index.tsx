@@ -1,6 +1,12 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { Link, redirect, useFetcher, useLoaderData } from "@remix-run/react";
-import { deletePhonebook, getPhonebookById } from "~/services/phonebook.server";
+import type { ActionFunctionArgs } from "@remix-run/node";
+import {
+  Link,
+  redirect,
+  useFetcher,
+  useRouteLoaderData,
+} from "@remix-run/react";
+import { deletePhonebook } from "~/services/phonebook.server";
+import { loader } from "./phonebook.$id";
 
 export const action = async ({ request, params }: ActionFunctionArgs) => {
   if (request.method === "DELETE") {
@@ -12,15 +18,11 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
   return null;
 };
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const { id } = params;
-  const phonebook = await getPhonebookById(Number(id));
-  return { phonebook };
-};
-
 export default function PhonebookDetailIndex() {
   const fetcher = useFetcher();
-  const { phonebook } = useLoaderData<typeof loader>();
+  const data = useRouteLoaderData<typeof loader>("routes/phonebook.$id");
+  const phonebook = data?.phonebook;
+
   return (
     <div className="mt-4 p-4">
       <div className="flex flex-col gap-4">
@@ -46,7 +48,7 @@ export default function PhonebookDetailIndex() {
         </div>
       </div>
       <div className="flex gap-4 mt-4">
-        <Link to={`/phonebook/${phonebook?.id}/edit`} state={{ phonebook }}>
+        <Link to={`/phonebook/${phonebook?.id}/edit`}>
           <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 mt-4">
             수정하기
           </button>
