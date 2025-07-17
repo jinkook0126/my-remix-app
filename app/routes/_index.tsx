@@ -21,6 +21,11 @@ export default function Index() {
           폼 액션 테스트
         </button>
       </Link>
+      <Link to="/error-demo">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          에러 데모
+        </button>
+      </Link>
     </div>
   );
 }
