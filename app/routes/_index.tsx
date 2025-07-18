@@ -26,6 +26,11 @@ export default function Index() {
           에러 데모
         </button>
       </Link>
+      <Link to="/optimistic">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          낙관적 UI 테스트
+        </button>
+      </Link>
     </div>
   );
 }
